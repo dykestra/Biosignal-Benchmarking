@@ -7,6 +7,10 @@ import tqdm
 import shutil
 import wfdb
 
+
+##############################
+# Class Aggregation Function #
+##############################
 def aggregate_diagnostic_one_class(y_dic):
     best_class = "None"
     best_value = -float('inf')
@@ -34,7 +38,9 @@ def aggregate_diagnostic_all_classes(y_dic):
             best_class = key
     return best_class
     
-
+##############################
+#      Downloading PTB-XL    #
+##############################
 print("Downloading ptb_xl....")
 subprocess.run([
     "wget",
@@ -43,6 +49,10 @@ subprocess.run([
     "https://physionet.org/files/ptb-xl/1.0.3/"
 ], check=False)
 
+
+##############################
+#     Merging Folders        #
+##############################
 source_root = "./ptb_xl/physionet.org/files/ptb-xl/1.0.3/records500"
 target_root = "./ptb_xl/records500_all"
 os.makedirs(target_root, exist_ok=True)
@@ -65,6 +75,9 @@ for subfolder in os.listdir(source_root):
 print("Merge complete.")
 print("Dataset cutting....")
 
+##############################
+#     Dataset Cutting        #
+##############################
 path = './ptb_xl/physionet.org/files/ptb-xl/1.0.3/'
 data_path = './ptb_xl/records500_all'
 
@@ -110,7 +123,3 @@ for idx, f_i in enumerate(tqdm.tqdm(new_Y['filename_hr'])):
 print(X.shape)
 np.save('ptb_xl_cut_benchmarking.npy', X)
 print("Dataset is ready")
-    
-
-#if __name__ == "__main__":
-#    download_cut_ptb_xl()
