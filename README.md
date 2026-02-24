@@ -101,6 +101,7 @@ By default, the `mode` is set to `'benchmark'` which will run cross-fold validat
 To run training on the whole dataset and save the finetuned model, set `--mode='finetune'` in the bash script.
 
 ## Citation
+The ECG and EEG benchmarks are introduced and described in the following publication:
 ```
 @article{Lee_2025,
 title={A Comprehensive Review of Biosignal Foundation Models},
@@ -112,6 +113,7 @@ year={2025},
 month=nov }
 ```
 
+The EEG benchmark was originally introduced and detailed in the following publication:
 ```
 @inproceedings{
 lee2025assessing,
