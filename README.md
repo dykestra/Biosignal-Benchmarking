@@ -98,6 +98,17 @@ To run training on the whole dataset and save the finetuned model, set `--mode='
 
 ## Citation
 ```
+@article{Lee_2025,
+title={A Comprehensive Review of Biosignal Foundation Models},
+url={http://dx.doi.org/10.36227/techrxiv.176369849.97173246/v1},
+DOI={10.36227/techrxiv.176369849.97173246/v1},
+publisher={Institute of Electrical and Electronics Engineers (IEEE)},
+author={Lee, Na and Barmpas, Konstantinos and Koliousis, Alexandros and Panagakis, Yannis and Adamos, Dimitrios and Laskaris, Nikolaos and Zafeiriou, Stefanos},
+year={2025},
+month=nov }
+```
+
+```
 @inproceedings{
 lee2025assessing,
 title={Assessing the Capabilities of Large Brainwave Foundation Models},
