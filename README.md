@@ -72,6 +72,10 @@ The [PTB-XL](https://physionet.org/content/ptb-xl/1.0.3) dataset is currently us
 
 ### Pre-process ECG Signal Data
 
+The script automates the download of the PTB-XL ECG dataset, executes preprocessing pipelines and formats the data for downstream classification tasks
+```commandline
+python preprocessing_ecg_ptb_xl.py
+```
 
 ## Run Benchmarking
 Once data has been pre-processed to the expected format and saved under `{DATA_PATH}`, the benchmarking script can be run as below:
