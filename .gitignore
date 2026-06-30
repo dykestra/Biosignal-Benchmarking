@@ -93,6 +93,7 @@ ipython_config.py
 *.ckpt
 *.bin
 *.pt
+*.safetensors
 
 # Training Logs
 *lightning_logs*

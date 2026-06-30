@@ -71,6 +71,12 @@ For compatability with our data loading functions, metadata about each dataset s
 ## ECG Data Pre-processing
 The [PTB-XL](https://physionet.org/content/ptb-xl/1.0.3) dataset is currently used for ECG benchmarking, with labels for 5, 23 or 43 classes.
 
+### Pre-process ECG Signal Data
+
+The script automates the download of the PTB-XL ECG dataset, executes preprocessing pipelines and formats the data for downstream classification tasks
+```commandline
+python preprocessing_ecg_ptb_xl.py
+```
 
 ## Run Benchmarking
 Once data has been pre-processed to the expected format and saved under `{DATA_PATH}`, the benchmarking script can be run as below:
@@ -96,6 +102,19 @@ By default, the `mode` is set to `'benchmark'` which will run cross-fold validat
 To run training on the whole dataset and save the finetuned model, set `--mode='finetune'` in the bash script.
 
 ## Citation
+The ECG and EEG benchmarks are introduced and described in the following publication:
+```
+@article{Lee_2025,
+title={A Comprehensive Review of Biosignal Foundation Models},
+url={http://dx.doi.org/10.36227/techrxiv.176369849.97173246/v1},
+DOI={10.36227/techrxiv.176369849.97173246/v1},
+publisher={Institute of Electrical and Electronics Engineers (IEEE)},
+author={Lee, Na and Barmpas, Konstantinos and Koliousis, Alexandros and Panagakis, Yannis and Adamos, Dimitrios and Laskaris, Nikolaos and Zafeiriou, Stefanos},
+year={2025},
+month=nov }
+```
+
+The EEG benchmark was originally introduced and detailed in the following publication:
 ```
 @inproceedings{
 lee2025assessing,
