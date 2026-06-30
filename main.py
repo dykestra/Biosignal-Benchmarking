@@ -178,7 +178,7 @@ if __name__ == "__main__":
     parser.add_argument('--force-balanced-classes', default=False, action="store_true", help="randomly sample data to get balanced classes")
     parser.add_argument('--mode', default='benchmark', type=str, help="run mode", choices=['benchmark', 'finetune'])
     parser.add_argument('--model-name', default='EEGNet', type=str, help="name of model to be fine-tuned", 
-                        choices=["EEGNet", "EEGInception", "LaBraM", "EEGPT", "NeuroGPT", "CBraMod", "BIOT", "MIRepNet", "HuBERTECG", "ECGFounder", "ECG-FM"])
+                        choices=["EEGNet", "EEGInception", "LaBraM", "EEGPT", "NeuroGPT", "CBraMod", "BIOT", "MIRepNet", "LUNA", "HuBERTECG", "ECGFounder", "ECG-FM"])
     args = parser.parse_args()
 
     # Select datasets (benchmark, n_classes)

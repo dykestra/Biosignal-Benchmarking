@@ -116,6 +116,13 @@ def get_model(model_name, n_chans, ch_names, sfreq, n_times, n_outputs, sbj_ids,
             ckpt_path=ckpt_path,
             train_head_only=train_head_only
         )
+    elif model_name == "LUNA":
+        return LUNAWrapper(
+            ch_names=ch_names,
+            n_outputs=n_outputs,
+            ckpt_path=ckpt_path,
+            train_head_only=train_head_only
+        )
     elif model_name == "HuBERTECG":
         return HuBERTECGWrapper(
             n_outputs=n_outputs,
@@ -152,6 +159,8 @@ def get_subdir(model_name):
         return "hubertecg"
     elif model_name == "ECGFounder":
         return "ecgfounder"
+    elif model_name == "LUNA":
+        return "luna"
     else:
         print(f"No specified data subdirectory for model {model_name}")
         return None

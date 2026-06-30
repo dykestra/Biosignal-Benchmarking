@@ -207,6 +207,22 @@ class MIRepNetWrapper(FinetuningWrapper):
         self.results = self.model.results
 
 
+class LUNAWrapper(FinetuningWrapper):
+    def __init__(self, ch_names, n_outputs, ckpt_path, train_head_only):
+        super().__init__()
+        from models import LUNAModule
+        self.model = LUNAModule(
+            ch_names=ch_names,
+            n_out=n_outputs,
+            ckpt_path=ckpt_path,
+            train_head_only=train_head_only
+        )
+
+    def fit(self, train_dataset, validation_dataset, batch_size, epochs):
+        self.model.fit(train_dataset, validation_dataset, batch_size, epochs)
+        self.results = self.model.results
+
+
 class HuBERTECGWrapper(FinetuningWrapper):
     def __init__(self, n_outputs, ckpt_path, train_head_only):
         super().__init__()

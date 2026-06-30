@@ -16,6 +16,7 @@ Benchmarking is currently supported for the following models:
 - **BIOT:** [github](https://github.com/ycq091044/BIOT)
 - **EEGPT:** [github](https://github.com/BINE022/EEGPT)
 - **MIRepNet:** [github](https://github.com/staraink/MIRepNet)
+- **LUNA:** [github](https://github.com/pulp-bio/biofoundation)
 
 ### ECG Models
 
@@ -69,8 +70,6 @@ For compatability with our data loading functions, metadata about each dataset s
 
 ## ECG Data Pre-processing
 The [PTB-XL](https://physionet.org/content/ptb-xl/1.0.3) dataset is currently used for ECG benchmarking, with labels for 5, 23 or 43 classes.
-
-### Pre-process ECG Signal Data
 
 
 ## Run Benchmarking

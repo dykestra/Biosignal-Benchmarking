@@ -74,7 +74,7 @@ class Benchmark(ABC):
 
 
 class KUERPBenchmark(Benchmark):
-    def __init__(self, root, subdir, apply_car, *args):
+    def __init__(self, root, subdir, apply_car, **kwargs):
         print("Loading KU ERP...")
         dir = get_data_dir(root, 'KU_ERP', subdir)
         kuerp_eeg = np.load(os.path.join(dir, 'kuerp_data.npy'), mmap_mode='r')
@@ -99,7 +99,7 @@ class KUERPBenchmark(Benchmark):
 
 
 class PhysionetMIBenchmark(Benchmark):
-    def __init__(self, root, subdir=None, apply_car=False, *args):
+    def __init__(self, root, subdir=None, apply_car=False, **kwargs):
         super().__init__()
         print("Loading PhysionetMI...")
         dir = get_data_dir(root, "PhysionetMI", subdir)
@@ -132,7 +132,7 @@ class PhysionetMIBenchmark(Benchmark):
 
 
 class Pavlov22Benchmark(Benchmark):
-    def __init__(self, root, subdir=None, apply_car=False, *args):
+    def __init__(self, root, subdir=None, apply_car=False, **kwargs):
         super().__init__()
         print("Loading Pavlov22...")
         dir = get_data_dir(root, "Pavlov22", subdir)
@@ -160,7 +160,7 @@ class Pavlov22Benchmark(Benchmark):
 
 
 class SleepEDFBenchmark(Benchmark):
-    def __init__(self, root, subdir, apply_car, *args):
+    def __init__(self, root, subdir, apply_car, **kwargs):
         print("Loading Sleep EDF...")
         dir = get_data_dir(root, "SleepEDF", subdir)
         sleep_eeg = np.load(os.path.join(dir, 'SleepEDF_eeg_trials.npy'), mmap_mode='r')

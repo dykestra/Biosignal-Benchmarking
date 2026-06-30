@@ -10,6 +10,7 @@ __all__ = [
     "HuBERTECGModule",
     "ECGFounderModule",
     "ECG_FMModule",
+    "LUNAModule"
 ]
 
 _MODULE_PATHS = {
@@ -22,6 +23,7 @@ _MODULE_PATHS = {
     "HuBERTECGModule": "models.HuBERTECG.modules",
     "ECGFounderModule": "models.ECGFounder.modules",
     "ECG_FMModule": "models.ECG_FM.modules",
+    "LUNAModule": "models.LUNA.modules"
 }
 
 def __getattr__(name):
