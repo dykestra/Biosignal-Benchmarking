@@ -223,6 +223,36 @@ class LUNAWrapper(FinetuningWrapper):
         self.results = self.model.results
 
 
+class REVEWrapper(FinetuningWrapper):
+    def __init__(self, ch_names, sfreq, n_outputs, n_time, ckpt_path, train_head_only):
+        from models import REVEModule
+        self.model = REVEModule(
+            ch_names=ch_names,
+            sfreq=sfreq,
+            n_outputs=n_outputs,
+            n_times=n_time,
+            ckpt_path=ckpt_path,
+            train_head_only=train_head_only
+        )
+
+    def fit(self, train_dataset, validation_dataset, batch_size, epochs):
+        trainer = pl.Trainer(accelerator='cuda',
+                        precision='16-mixed',
+                        max_epochs=epochs, 
+                        min_epochs=epochs,
+                        logger=None,
+                        enable_checkpointing=False)    
+        
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=8, shuffle=True)
+        validation_loader = DataLoader(validation_dataset, batch_size=batch_size, num_workers=8, shuffle=False)  
+        
+        # steps_per_epoch = math.ceil(len(train_loader))
+        # self.model.set_training_params(steps_per_epoch, max_epochs=epochs)
+        trainer.fit(self.model, train_loader, validation_loader)
+        self.results = self.model.results
+
+
+
 class HuBERTECGWrapper(FinetuningWrapper):
     def __init__(self, n_outputs, ckpt_path, train_head_only):
         super().__init__()
@@ -266,6 +296,25 @@ class ECG_FMWrapper(FinetuningWrapper):
     def fit(self, train_dataset, validation_dataset, batch_size, epochs):
         self.model.fit(train_dataset, validation_dataset, batch_size, epochs)
         self.results = self.model.results
+
+
+class NeuroRVQWrapper(FinetuningWrapper):
+    def __init__(self, n_time, ch_names, n_outputs, ckpt_path, modality, train_head_only):
+        super().__init__()
+        from models import NeuroRVQModule
+        self.model = NeuroRVQModule(
+            sample_length=n_time, 
+            chnames=ch_names, 
+            n_out=n_outputs, 
+            ckpt_path=ckpt_path, 
+            modality=modality, 
+            train_head_only=train_head_only
+            )
+
+    def fit(self, train_dataset, validation_dataset, batch_size, epochs):
+        self.model.fit(train_dataset, validation_dataset, batch_size, epochs)
+        self.results = self.model.results
+
 
 
 def get_braindecode_net(model, lr=0.001, weight_decay=0, n_epochs=100, batch_size=64, train_split=None):

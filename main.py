@@ -61,6 +61,7 @@ def perform_benchmarking(benchmarks, metrics, args):
                 sbj_ids=sbj_id,
                 encoder_only=args.encoder_only,
                 ckpt_path=args.ckpt_path,
+                modality=args.modality,
                 train_head_only=args.train_head_only
                 )
             print(f"No. Trainable Parameters: {model.size()}")
@@ -133,6 +134,7 @@ def perform_finetuning(benchmarks, metrics, args):
             sbj_ids=sbj_id,
             encoder_only=args.encoder_only,
             ckpt_path=args.ckpt_path,
+            modality=args.modality,
             train_head_only=args.train_head_only
             )
         print(f"No. Trainable Parameters: {model.size()}")
@@ -177,8 +179,10 @@ if __name__ == "__main__":
     parser.add_argument('--train-head-only', default=False, action="store_true", help="freeze foundation model and train classification head only")
     parser.add_argument('--force-balanced-classes', default=False, action="store_true", help="randomly sample data to get balanced classes")
     parser.add_argument('--mode', default='benchmark', type=str, help="run mode", choices=['benchmark', 'finetune'])
+    parser.add_argument('--modality', default='eeg', type=str, help="biosignal modality", choices=['eeg', 'ecg'])
     parser.add_argument('--model-name', default='EEGNet', type=str, help="name of model to be fine-tuned", 
-                        choices=["EEGNet", "EEGInception", "LaBraM", "EEGPT", "NeuroGPT", "CBraMod", "BIOT", "MIRepNet", "LUNA", "HuBERTECG", "ECGFounder", "ECG-FM"])
+                        choices=["EEGNet", "EEGInception", "LaBraM", "EEGPT", "NeuroGPT", "CBraMod", "BIOT", "MIRepNet", "HuBERTECG", "ECGFounder",
+                                  "ECG-FM", "LUNA", "REVE", "NeuroRVQ"])
     args = parser.parse_args()
 
     # Select datasets (benchmark, n_classes)

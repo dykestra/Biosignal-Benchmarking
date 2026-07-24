@@ -50,7 +50,7 @@ def get_logger(args):
 
     return logger
 
-def get_model(model_name, n_chans, ch_names, sfreq, n_times, n_outputs, sbj_ids, encoder_only=False, ckpt_path=None, train_head_only=False):
+def get_model(model_name, n_chans, ch_names, sfreq, n_times, n_outputs, sbj_ids, encoder_only=False, ckpt_path=None, modality='eeg', train_head_only=False):
     """
     Returns: FinetuningWrapper for the specified model
     """
@@ -123,6 +123,15 @@ def get_model(model_name, n_chans, ch_names, sfreq, n_times, n_outputs, sbj_ids,
             ckpt_path=ckpt_path,
             train_head_only=train_head_only
         )
+    elif model_name == "REVE":
+        return REVEWrapper(
+            ch_names=ch_names, 
+            sfreq=sfreq, 
+            n_outputs=n_outputs, 
+            n_time=n_times, 
+            ckpt_path=ckpt_path, 
+            train_head_only=train_head_only
+        )
     elif model_name == "HuBERTECG":
         return HuBERTECGWrapper(
             n_outputs=n_outputs,
@@ -139,6 +148,15 @@ def get_model(model_name, n_chans, ch_names, sfreq, n_times, n_outputs, sbj_ids,
         return ECG_FMWrapper(
             n_outputs=n_outputs,
             ckpt_path=ckpt_path,
+            train_head_only=train_head_only
+        )
+    elif model_name == "NeuroRVQ":
+        return NeuroRVQWrapper(
+            n_time=n_times, 
+            ch_names=ch_names, 
+            n_outputs=n_outputs, 
+            ckpt_path=ckpt_path, 
+            modality=modality, 
             train_head_only=train_head_only
         )
     else:

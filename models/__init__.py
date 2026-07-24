@@ -10,7 +10,9 @@ __all__ = [
     "HuBERTECGModule",
     "ECGFounderModule",
     "ECG_FMModule",
-    "LUNAModule"
+    "LUNAModule",
+    "REVEModule",
+    "NeuroRVQModule"
 ]
 
 _MODULE_PATHS = {
@@ -23,7 +25,9 @@ _MODULE_PATHS = {
     "HuBERTECGModule": "models.HuBERTECG.modules",
     "ECGFounderModule": "models.ECGFounder.modules",
     "ECG_FMModule": "models.ECG_FM.modules",
-    "LUNAModule": "models.LUNA.modules"
+    "LUNAModule": "models.LUNA.modules",
+    "REVEModule": "models.REVE.modules",
+    "NeuroRVQModule": "models.NeuroRVQm.modules"
 }
 
 def __getattr__(name):

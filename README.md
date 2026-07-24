@@ -17,6 +17,8 @@ Benchmarking is currently supported for the following models:
 - **EEGPT:** [github](https://github.com/BINE022/EEGPT)
 - **MIRepNet:** [github](https://github.com/staraink/MIRepNet)
 - **LUNA:** [github](https://github.com/pulp-bio/biofoundation)
+- **REVE:** [github](https://github.com/elouayas/reve_eeg)
+- **NeuroRVQ:** [github](https://github.com/KonstantinosBarmpas/NeuroRVQ)
 
 ### ECG Models
 
