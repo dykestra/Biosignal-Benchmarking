@@ -179,6 +179,8 @@ def get_subdir(model_name):
         return "ecgfounder"
     elif model_name == "LUNA":
         return "luna"
+    elif model_name in ["NeuroRVQ"]:
+        return "neurorvq"
     else:
         print(f"No specified data subdirectory for model {model_name}")
         return None

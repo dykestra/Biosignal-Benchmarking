@@ -21,6 +21,7 @@ def perform_benchmarking(benchmarks, metrics, args):
         # Load data
         b = load_benchmark(benchmark, args.data_root, get_subdir(args.model_name), args.apply_car, n_outputs)
         X, sbj_id, y, ch_names = b.get_data()
+        modality = b.modality
 
         dataset = skorch.dataset.Dataset(X, y)
         sbj_id_unique = np.sort(np.unique(sbj_id))
@@ -61,7 +62,7 @@ def perform_benchmarking(benchmarks, metrics, args):
                 sbj_ids=sbj_id,
                 encoder_only=args.encoder_only,
                 ckpt_path=args.ckpt_path,
-                modality=args.modality,
+                modality=modality,
                 train_head_only=args.train_head_only
                 )
             print(f"No. Trainable Parameters: {model.size()}")
@@ -178,8 +179,7 @@ if __name__ == "__main__":
     parser.add_argument('--logger', default='clearml', type=str, help="where to log results", choices=['clearml', 'csv'])
     parser.add_argument('--train-head-only', default=False, action="store_true", help="freeze foundation model and train classification head only")
     parser.add_argument('--force-balanced-classes', default=False, action="store_true", help="randomly sample data to get balanced classes")
-    parser.add_argument('--mode', default='benchmark', type=str, help="run mode", choices=['benchmark', 'finetune'])
-    parser.add_argument('--modality', default='eeg', type=str, help="biosignal modality", choices=['eeg', 'ecg'])
+    parser.add_argument('--mode', default='benchmark', type=str, help="run mode", choices=['benchmark', 'finetune']) 
     parser.add_argument('--model-name', default='EEGNet', type=str, help="name of model to be fine-tuned", 
                         choices=["EEGNet", "EEGInception", "LaBraM", "EEGPT", "NeuroGPT", "CBraMod", "BIOT", "MIRepNet", "HuBERTECG", "ECGFounder",
                                   "ECG-FM", "LUNA", "REVE", "NeuroRVQ"])
@@ -192,7 +192,9 @@ if __name__ == "__main__":
         ("Pavlov memory", 2),
         ("Sleep EDF", 6),
         ("Physionet MI", 2),
-        # ("PTB-XL", 43)
+        ("PTB-XL", 5),
+        ("PTB-XL", 23),
+        ("PTB-XL", 43)
     ]
 
     # Select evaluation metrics 
@@ -216,8 +218,12 @@ if __name__ == "__main__":
         print("="*30)
         print("Finetuning Complete!")
         print(f"Final Validation Results:")
-        for b,_ in benchmarks:
-            print(f"{b} | {[(m, results[b][f'{m}_mean']) for m in metrics]}")
+        for benchmark, vals in results.items():
+            metric_strs = [
+                f"({m} = {vals[f'{m}_mean']:.4f}+/-{np.std(vals[f'{m}_fold_vals']):.4f})"
+                for m in metrics
+            ]
+            print(f"{benchmark} | " + ", ".join(metric_strs))
         print("="*30)
 
         with open(os.path.join(args.output_dir, f'results_{args.ex_id}.txt'), 'w') as f: 

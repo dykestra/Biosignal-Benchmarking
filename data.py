@@ -30,6 +30,7 @@ class Benchmark(ABC):
         self.subject_ids = None
         self.labels = None
         self.chnames = None
+        self.modality = None
     
     def get_data(self):
         return self.data, self.subject_ids, self.labels, self.chnames
@@ -96,6 +97,7 @@ class KUERPBenchmark(Benchmark):
         self.subject_ids = subject_ids
         self.labels = labels
         self.chnames = chnames
+        self.modality = "eeg"
 
 
 class PhysionetMIBenchmark(Benchmark):
@@ -125,6 +127,7 @@ class PhysionetMIBenchmark(Benchmark):
         self.subject_ids = subject_ids
         self.labels =labels
         self.chnames = chnames
+        self.modality = "eeg"
 
     def sample_balanced_set(self, idx, seed):
         print("Classes are already balanced for Physionet MI")
@@ -157,6 +160,7 @@ class Pavlov22Benchmark(Benchmark):
         self.subject_ids = subject_ids
         self.labels = labels
         self.chnames = chnames
+        self.modality = "eeg"
 
 
 class SleepEDFBenchmark(Benchmark):
@@ -178,10 +182,11 @@ class SleepEDFBenchmark(Benchmark):
         self.subject_ids = subject_ids
         self.labels = labels
         self.chnames = chnames
+        self.modality = "eeg"
     
 
 class HighGammaBenchmark(Benchmark):
-    def __init__(self, root, subdir, apply_car, n_cls):
+    def __init__(self, root, subdir, apply_car, n_cls, **kwargs):
         super().__init__()
         print("Loading High Gamma...")
         dir = get_data_dir(root, "HighGamma", subdir)
@@ -222,23 +227,24 @@ class HighGammaBenchmark(Benchmark):
         self.subject_ids = subject_ids
         self.labels = labels
         self.chnames = chnames
+        self.modality = "eeg"
 
     def sample_balanced_set(self, idx, seed):
         print("Classes are already balanced for High Gamma")
         return idx
 
 class PTBXLBenchmark(Benchmark):
-    def __init__(self, root, subdir, **kwargs):
+    def __init__(self, root, subdir, n_cls, **kwargs):
         super().__init__()
         print("Loading PTB-XL...")
-        assert kwargs['n_cls'] in [5, 23, 43], "Unsupported number of classes"
+        assert n_cls in [5, 23, 43], "Unsupported number of classes"
 
         self.benchmark_root = os.path.join(root, "PTB_XL")
         tf = pd.read_csv(os.path.join(self.benchmark_root, "ptb_xl_cut_benchmarking_v2.csv"), keep_default_na=False)
         dir = get_data_dir(root, "PTB_XL", subdir)
         ecg = np.load(os.path.join(dir, 'ptb_xl_cut_benchmarking_v2.npy'), mmap_mode='r')
 
-        label_col = f"diagnostic_{kwargs['n_cls']}_classes"
+        label_col = f"diagnostic_{n_cls}_classes"
         tf = tf.loc[:, ['patient_id', 'scp_codes', 'strat_fold', label_col]]
 
         trial_mask = (tf[label_col] != 'None')
@@ -254,6 +260,7 @@ class PTBXLBenchmark(Benchmark):
         self.subject_ids = np.array(self.tf['patient_id'])
         self.labels = np.array(labels)
         self.chnames = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
+        self.modality = "ecg"
 
 
     def get_splits(self, n_splits):
