@@ -26,7 +26,8 @@ def perform_benchmarking(benchmarks, metrics, args):
         dataset = skorch.dataset.Dataset(X, y)
         sbj_id_unique = np.sort(np.unique(sbj_id))
         n, c, t = X.shape
-        
+
+        benchmark = f"{benchmark} {n_outputs}-cls"
         results[benchmark] = {}
         all_train_metrics = {m:[] for m in metrics}
         all_val_metrics = {m:[] for m in metrics}
