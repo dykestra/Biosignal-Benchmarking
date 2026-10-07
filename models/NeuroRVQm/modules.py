@@ -313,6 +313,8 @@ class NeuroRVQModule():
 
                 if self.n_out > 2:
                     confusion_matrix.update(p.argmax(dim=1), y_b.cuda())
+                else:
+                    confusion_matrix.update((p > 0).long(), y_b.long().cuda())
 
                 # Collect class predictions to compute metrics on the full epoch
                 p = p.detach().cpu().float()
